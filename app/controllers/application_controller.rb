@@ -33,6 +33,13 @@ end
     @todos = Todo.all
     {todos: @todos}.to_json
   end
+
+  get "/todos/:id" do
+    @todos = Todo.find_by_id(params[:id])
+    category = @todos.category
+    {todos: @todos, category: category}.to_json
+  end
+
   post "/todos" do
     category = Category.where(name: params[:category_name]).first
     unless category
@@ -52,7 +59,7 @@ end
     todo = Todo.find_by_id(params[:id])
     category = Category.where(name: params[:category_name]).first
     category_id = category ? category.id : todo.category_id
-    @todos = todo.update(description: params[:description], marked: params[:marked],
+    @todos = todo.update(name: params[:name], description: params[:description], marked: params[:marked],
     category_id: category_id)
     if @todos
       {todos: @todos}.to_json
