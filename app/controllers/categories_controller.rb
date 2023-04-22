@@ -29,7 +29,7 @@ end
 
 delete "/categories/:id" do
   category = Category.find(params[:id]) #select * from categories where id = params[:id];
-  if category.delete # delete from category where id = category.id;
+  if category.destroy # delete from category where id = category.id;
     {message: "category deleted"}.to_json
   else
     {message: "category not deleted."}.to_json
