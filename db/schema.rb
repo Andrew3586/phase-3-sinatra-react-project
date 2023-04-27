@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_13_023126) do
+ActiveRecord::Schema.define(version: 2023_04_25_095257) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -18,8 +18,7 @@ ActiveRecord::Schema.define(version: 2023_03_13_023126) do
 
   create_table "todos", force: :cascade do |t|
     t.string "name"
-    t.string "description"
-    t.boolean "marked"
+    t.boolean "marked", default: false
     t.integer "category_id"
   end
 

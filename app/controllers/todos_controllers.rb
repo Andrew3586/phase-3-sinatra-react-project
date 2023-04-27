@@ -23,11 +23,21 @@ category =Category.find(params[:category_id])
   put "/categories/:category_id/todos/:id/edit" do
     puts params
     todo = Todo.find(params[:id])
-    if todo.update(name:params[:name])
-      {message:"Name updated successfully."}.to_json
+    if params.has_key?(:marked)
+      if todo.update(marked:params[:marked])
 
+        {message:"Task is completed"}.to_json
+
+      else
+        {message: "Task completion failed"}.to_json
+      end
     else
-      {message: "Name update failed."}.to_json
+      if todo.update(name:params[:name])
+        {message:"Name updated successfully."}.to_json
+
+      else
+        {message: "Name update failed."}.to_json
+      end
     end
   end
   delete "/categories/:category_id/todos/:id/delete" do
